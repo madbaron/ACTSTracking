@@ -18,8 +18,8 @@ const int32_t GeometryIdMappingTool::OuterTrackerBarrel = 5;
 const int32_t GeometryIdMappingTool::OuterTrackerEndCapPositive = 6;
 
 const std::unordered_map<uint32_t, uint32_t>
-    GeometryIdMappingTool::NLad_VertexBarrel = {{0, 5}, {1, 5}, {2, 5}, {3, 5},
-                                                {4, 5}, {5, 5}, {6, 5}, {7, 5}};
+    GeometryIdMappingTool::NLad_VertexBarrel = {
+        {0, 5}, {1, 5}, {2, 5}, {3, 5}, {4, 5}};
 
 const std::unordered_map<uint32_t, uint32_t>
     GeometryIdMappingTool::NRng_VertexEndCap = {
