@@ -2,6 +2,8 @@
 
 #include <EVENT/TrackerHit.h>
 
+#include "Acts/Surfaces/Surface.hpp"
+
 #include "GeometryContainers.hxx"
 
 namespace ACTSTracking {
@@ -46,6 +48,22 @@ class SourceLink final {
 
 /// Container of index source links
 using SourceLinkContainer = GeometryIdMultiset<SourceLink>;
-// Wrapper for SourceLinkContainer for use with CKF
-using SourceLinkAccessor = GeometryIdMultisetAccessor<SourceLink>;
+/// Accessor for the above source link container
+///
+/// It wraps up a few lookup methods to be used in the Combinatorial Kalman
+/// Filter
+struct SourceLinkAccessor : GeometryIdMultisetAccessor<SourceLink> {
+  using BaseIterator = GeometryIdMultisetAccessor<SourceLink>::Iterator;
+
+  using Iterator = Acts::SourceLinkAdapterIterator<BaseIterator>;
+
+  // get the range of elements with requested geoId
+  std::pair<Iterator, Iterator> range(const Acts::Surface& surface) const {
+    assert(container != nullptr);
+    auto [begin, end] = container->equal_range(surface.geometryId());
+    return {Iterator{begin}, Iterator{end}};
+  }
+};
+
 }  // namespace ACTSTracking
+

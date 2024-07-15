@@ -101,6 +101,14 @@ struct GeometryIdMultisetAccessor {
     return container->equal_range(geoId);
   }
 
+  // get the range of elements with requested geoId
+  std::pair<Iterator, Iterator> range(
+      const Acts::Surface& surface) const {
+    assert(container != nullptr);
+    auto [begin, end] = container->equal_range(surface.geometryId());
+    return {Iterator{begin}, Iterator{end}};
+  }
+
   // get the element using the iterator
   const Value& at(const Iterator& it) const { return *it; }
 };

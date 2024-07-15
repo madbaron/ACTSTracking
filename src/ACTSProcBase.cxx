@@ -596,7 +596,6 @@ void ACTSProcBase::buildDetector() {
     ringLayoutConfiguration(lbc.layerConfigurations[0]);
     ringLayoutConfiguration(lbc.layerConfigurations[2]);
     volumeConfig.layerBuilder = layerBuilder;
-    volumeConfig.volumeSignature = 0;
     auto volumeBuilder = std::make_shared<const Acts::CylinderVolumeBuilder>(
         volumeConfig,
         Acts::getDefaultLogger(lbc.configurationName + "VolumeBuilder",

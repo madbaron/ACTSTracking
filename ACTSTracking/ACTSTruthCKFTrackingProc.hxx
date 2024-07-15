@@ -58,6 +58,10 @@ class ACTSTruthCKFTrackingProc : public ACTSProcBase {
   uint32_t _eventNumber;
   uint32_t _runNumber;
 
+  // Extrapolation to calo settings
+  float _caloFaceR = 1857; //mm
+  float _caloFaceZ = 2307; //mm
+
   // Track fit parameters
   double _initialTrackError_d0 = 20 * Acts::UnitConstants::um;  // Marlin: 1.e3
   double _initialTrackError_phi =
