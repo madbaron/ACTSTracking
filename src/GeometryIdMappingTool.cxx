@@ -128,18 +128,11 @@ uint64_t GeometryIdMappingTool::getGeometryID(uint32_t systemID,
       layer_id = 2 * (layerID) + 2;
       break;
     case VertexBarrel:
-      switch (layerID) {
-        case 0:
-          layer_id = 2;
-        case 1:
-          layer_id = 4;
-        case 2:
-          layer_id = 6;
-        case 4:
-          layer_id = 8;
-        case 6:
-          layer_id = 10;
-      }
+      if(layerID==0) layer_id = 2;
+      if(layerID==1) layer_id = 4;
+      if(layerID==2) layer_id = 6;
+      if(layerID==4) layer_id = 8;
+      if(layerID==6) layer_id = 10;
       break;
     case InnerTrackerBarrel:
     case OuterTrackerBarrel: {
@@ -182,7 +175,20 @@ uint64_t GeometryIdMappingTool::getGeometryID(uint32_t systemID,
   uint64_t sensitive_id;
   switch (signSystemID) {
     case VertexBarrel:
-      sensitive_id = NLad_VertexBarrel.at(layerID) * ladderID + moduleID + 1;
+      uint64_t my_layer_ID;
+      switch (layerID) {
+        case 0:
+          my_layer_ID = 0;
+        case 1:
+          my_layer_ID = 1;
+        case 2:
+          my_layer_ID = 2;
+        case 4:
+          my_layer_ID = 3;
+        case 6:
+          my_layer_ID = 4;
+      }
+      sensitive_id = NLad_VertexBarrel.at(my_layer_ID) * ladderID + moduleID + 1;
       break;
     case InnerTrackerBarrel:
       sensitive_id =
