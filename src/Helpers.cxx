@@ -301,16 +301,16 @@ EVENT::Track* ACTS2Marlin_track(
   }
 
   // Create the CaloSurface
-  auto caloCylinder = std::make_shared<Acts::CylinderBounds>(caloFaceR, caloFaceZ);
+  auto caloCylinder = std::make_shared<Acts::CylinderBounds>(caloFaceR * Acts::UnitConstants::mm, caloFaceZ * Acts::UnitConstants::mm);
   auto caloSurface = Acts::Surface::makeShared<Acts::CylinderSurface>(Acts::Transform3::Identity(), caloCylinder);
   
   // Define the circle dimensions (circles at both ends of the cylinder)
-  Acts::Translation3 circlePosition1(0, 0, -caloFaceZ); // circle at -z end
-  Acts::Translation3 circlePosition2(0, 0, caloFaceZ);  // circle at +z end
+  Acts::Translation3 circlePosition1(0, 0, -caloFaceZ * Acts::UnitConstants::mm); // circle at -z end
+  Acts::Translation3 circlePosition2(0, 0, caloFaceZ * Acts::UnitConstants::mm);  // circle at +z end
 
   // Create the circle surfaces
-  auto circleSurface1 = Acts::Surface::makeShared<Acts::DiscSurface>(Acts::Transform3(circlePosition1), 0. ,caloFaceR);
-  auto circleSurface2 = Acts::Surface::makeShared<Acts::DiscSurface>(Acts::Transform3(circlePosition2), 0., caloFaceR);
+  auto circleSurface1 = Acts::Surface::makeShared<Acts::DiscSurface>(Acts::Transform3(circlePosition1), 0. ,caloFaceR * Acts::UnitConstants::mm);
+  auto circleSurface2 = Acts::Surface::makeShared<Acts::DiscSurface>(Acts::Transform3(circlePosition2), 0., caloFaceR * Acts::UnitConstants::mm);
 
   // define start parameters - swap this out with some smart call
   double d0 = params[Acts::eBoundLoc0];
